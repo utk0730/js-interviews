@@ -1,4 +1,39 @@
 const limit = 4;
+
+const sum1 = (...args) => {
+  //spread the arguments in storage array
+  const storage = [...args];
+
+  //base case
+  //if we have reached the limit
+  if (storage.length === 4) {
+    return storage.reduce((a, b) => a + b, 0);
+  }
+  //other wise return a function
+  else {
+    //create an inner function
+    const temp = function (...args2) {
+      //get the arguments of inner function
+      //merge them in existing storage
+      storage.push(...args2);
+
+      //if we have reached the limit
+      //return the value
+      if (storage.length === 4) {
+        return storage.reduce((a, b) => a + b, 0);
+      }
+      //else return the same function again
+      else {
+        return temp;
+      }
+    };
+
+    //return the function
+    return temp;
+  }
+};
+
+//
 const sum = (...args) => {
   //spread the arguments in storage array
   const storage = [...args];
