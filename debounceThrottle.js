@@ -7,11 +7,24 @@ function myDebounce(fn, delay) {
   return function (...args) {
     const context = this;
     clearTimeout(timer);
-    timer = setInterval(() => {
+    timer = setTimeout(() => {
       fn.apply(context, args);
     }, delay);
   };
 }
+
+// Debounce variation for -> T(E) - - - - T(E) - - T - T - - - T(E) - - - T(E)
+function myDebounce2(fn, delay) {
+  let timer = "";
+  return (args) => {
+    if (!timer) fn(args);
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      timer = "";
+    }, delay);
+  };
+}
+//
 
 const betterFnDebounce = myDebounce(printName, 3000);
 // betterFnDebounce();
